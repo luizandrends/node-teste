@@ -21,7 +21,7 @@ describe('CreateUserService', () => {
 
     const createUser = await createUserService.execute(userData);
 
-    expect(createUser).toHaveProperty('_id');
+    expect(createUser).toHaveProperty('id');
   });
 
   it('should not be able to create an user with a existent email', async () => {

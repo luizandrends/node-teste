@@ -9,6 +9,7 @@ import { errors } from 'celebrate';
 import routes from './routes';
 
 import './database';
+import '../../container';
 
 class App {
   public express: express.Application;
