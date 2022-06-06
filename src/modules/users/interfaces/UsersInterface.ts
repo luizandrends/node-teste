@@ -5,6 +5,7 @@ import User from '@modules/users/infra/database/schemas/User';
 
 export default interface UsersInterface {
   create(userData: UserDTO): Promise<User>;
-  findById(userId: ObjectID): Promise<User | undefined>;
-  findByEmail(email: string): Promise<User | undefined>;
+  findById(userId: ObjectID): Promise<User | null | undefined>;
+  findByEmail(email: string): Promise<User | null | undefined>;
+  save(user: User): Promise<User>;
 }

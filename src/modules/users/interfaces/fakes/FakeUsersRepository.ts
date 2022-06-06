@@ -20,16 +20,20 @@ class FakeUsersRepository implements UsersInterface {
     return user;
   }
 
-  public async findById(userId: ObjectID): Promise<User | undefined> {
+  public async findById(userId: ObjectID): Promise<User | null | undefined> {
     const findUser = this.users.find(user => user.id === userId);
 
     return findUser;
   }
 
-  public async findByEmail(email: string): Promise<User | undefined> {
+  public async findByEmail(email: string): Promise<User | null | undefined> {
     const findUser = this.users.find(user => user.email === email);
 
     return findUser;
+  }
+
+  public async save(user: User): Promise<User> {
+    return user;
   }
 }
 
