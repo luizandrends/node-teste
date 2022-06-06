@@ -11,16 +11,13 @@ const connection = [
   {
     name: 'default',
     type: 'mongodb',
-    url: `mongodb+srv://admin:admin@auth-database.tg6h7.mongodb.net/${
-      process.env.NODE_ENV === 'development'
-        ? env.developmentDatabaseName
-        : env.productionDatabaseName
-    }?retryWrites=true&w=majority`,
+    url: 'mongodb+srv://admin:admin123@cluster0.atsla.mongodb.net/?retryWrites=true&w=majority',
     entities: [
       process.env.NODE_ENV === 'development'
         ? env.developmentPath
         : env.productionPath,
     ],
+    database: 'signup-database',
   },
 ];
 
