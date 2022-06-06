@@ -17,7 +17,7 @@ class UsersRepository implements UsersInterface {
     return user;
   }
 
-  public async findById(userId: ObjectID): Promise<User | null> {
+  public async findById(userId: ObjectID): Promise<User | null | undefined> {
     const findUser = await this.ormRepository.findOne({
       where: { id: userId },
     });
@@ -25,7 +25,7 @@ class UsersRepository implements UsersInterface {
     return findUser;
   }
 
-  public async findByEmail(email: string): Promise<User | null> {
+  public async findByEmail(email: string): Promise<User | null | undefined> {
     const findUser = await this.ormRepository.findOne({
       where: { email },
     });

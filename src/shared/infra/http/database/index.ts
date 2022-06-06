@@ -1,3 +1,4 @@
-import { createConnections } from 'typeorm';
+import 'reflect-metadata';
+import { createConnection } from 'typeorm';
 
-createConnections();
+export default async () => createConnection();
