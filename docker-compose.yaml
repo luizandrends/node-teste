@@ -12,6 +12,9 @@ services:
       - '2181:2181'
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
+    volumes:
+      - zookeeper:/data
+      - zookeeper:/datalog
   kafka:
     image: 'bitnami/kafka:latest'
     container_name: 'kafka'
@@ -25,18 +28,21 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
       - zookeeper
+    volumes:
+      - kafka:/var/lib/kafka/data
   kafka-manager:
-    image: sheepkiller/kafka-manager:latest
+    container_name: kafka-manager
+    image: sheepkiller/kafka-manager@sha256:615f3b99d38aba2d5fdb3fb750a5990ba9260c8fb3fd29c7e776e8c150518b78
     ports:
-      - "9000:9000"
-    links:
-      - zookeeper
-      - kafka
+      - 9000:9000
     environment:
       ZK_HOSTS: zookeeper:2181
-      APPLICATION_SECRET: letmein
-      KM_ARGS: -Djava.net.preferIPv4Stack=true
+    depends_on:
+    - zookeeper
 
 
 volumes:
   mongodb_data_container:
+  kafka:
+  zookeeper:
+
