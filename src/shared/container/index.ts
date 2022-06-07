@@ -1,5 +1,6 @@
 import { container } from 'tsyringe';
 
+import './providers';
 import '@modules/users/providers';
 
 import UsersInterface from '@modules/users/interfaces/UsersInterface';

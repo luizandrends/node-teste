@@ -1,10 +1,11 @@
 import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
+import KafkaProducerInterface from '@shared/container/providers/kafka/interfaces/KafkaProducerInterface';
 import User from '../infra/database/schemas/User';
 import UserDTO from '../dtos/UserDTO';
 import UsersInterface from '../interfaces/UsersInterface';
-import HashProvider from '../providers/HashProvider/interfaces/HashProvider';
+import HashProviderInterface from '../providers/HashProvider/interfaces/HashProvider';
 
 @injectable()
 class CreateUserService {
@@ -13,7 +14,10 @@ class CreateUserService {
     private usersRepository: UsersInterface,
 
     @inject('HashProvider')
-    private hashProvider: HashProvider
+    private hashProvider: HashProviderInterface,
+
+    @inject('KafkaProducer')
+    private kafkaProvider: KafkaProducerInterface
   ) {}
 
   public async execute(userData: UserDTO): Promise<User> {
@@ -36,6 +40,17 @@ class CreateUserService {
     const user = await this.usersRepository.create(createUserData);
 
     await this.usersRepository.save(user);
+
+    const parsedUserId = user.id.toString();
+
+    await this.kafkaProvider.sendEvent({
+      kafka: {
+        topicName: 'signin-database-loader',
+      },
+      userId: parsedUserId,
+      email,
+      password,
+    });
 
     return user;
   }
