@@ -1,15 +1,15 @@
 import 'reflect-metadata';
 import 'express-async-errors';
 
+import './database';
+import '@shared/container/index';
+
 import AppError from '@shared/errors/AppError';
 
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import { errors } from 'celebrate';
 import routes from './routes';
-
-import '../../container';
-import './database';
 
 class App {
   public express: express.Application;
