@@ -8,6 +8,7 @@
     "test": "jest --coverage --watchAll"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "celebrate": "^15.0.1",
     "class-transformer": "^0.4.0",
     "cors": "^2.8.5",
@@ -20,6 +21,7 @@
     "typeorm": "^0.2.31"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/hapi__joi": "^17.1.8",
